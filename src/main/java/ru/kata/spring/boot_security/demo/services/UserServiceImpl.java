@@ -11,7 +11,7 @@ import ru.kata.spring.boot_security.demo.repository.UserDao;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
 
@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void edit(User userUp) {
-        userDao.edit(userUp);
+    public void edit(User userE) {
+        userDao.edit(userE);
     }
 
 

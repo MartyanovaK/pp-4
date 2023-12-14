@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit User</title>
@@ -29,16 +29,13 @@
     <br/>
     <label for="password">Password:</label>
     <input type="text" th:field="*{password}" id="password">
-    <br><br>
-    <div>
-        <label>choose a role
-            <th:block th:each="role: ${roles}">
-                <input type="checkbox" th:field="*{roles}"
-                       th:text="${role.getRole}" th:value="${role.getRole()}" class="m-2"/>
-            </th:block>
-        </label>
-    </div>
     <br>
+    <label for="roles">Роль:</label>
+    <select  id="roles" name="checkRoles">
+        <option selected = "true">USER</option>
+        <option>ADMIN</option>
+    </select>
+    <br/>
     <input type="submit" value="Update!"/>
 </form>
 </body>

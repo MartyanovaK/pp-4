@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
-@PreAuthorize("hasRole('ADMIN')")
+@RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
@@ -21,37 +20,41 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-    @GetMapping("/admin")
+    @GetMapping()
     public String allUsers(ModelMap model) {
         model.addAttribute("users", userService.allUsers());
+        model.addAttribute("roles", roleService.findAll());
         return "/admin";
     }
 
 
-    @GetMapping("/admin/new")
+    @GetMapping("/new")
     public String newUser(ModelMap model, User user) {
         model.addAttribute("user", user);
         model.addAttribute("roles", roleService.findAll());
         return "/new";
     }
 
-    @PostMapping("/admin/new")
-    public String add(@ModelAttribute("user") User user, ModelMap model) {
-        model.addAttribute("roles", roleService.findAll());
+    @PostMapping("/new")
+    public String add(@ModelAttribute("user") User user, @RequestParam("checkRoles") String[] selectResult) {
+        Set<Role> roles = new HashSet<>();
+        for (String s : selectResult) {
+            roles.add(roleService.findRoleByRoleName("ROLE_" + s));
+            user.setRoles(roles);
+        }
         userService.add(user);
         return "redirect:/admin";
-
     }
 
-    @GetMapping("/admin/edit/{id}")
-    public String edit(ModelMap model, @PathVariable("id") Long id) {
+
+    @GetMapping("/edit")
+    public String edit(ModelMap model, @RequestParam("id") Long id) {
         model.addAttribute("user", userService.getById(id));
-        model.addAttribute("roles", roleService.findAll());
         return "/edit";
     }
 
 
-    @PostMapping("/admin/{id}")
+    @PostMapping("/edit")
     public String update(@ModelAttribute("user") User user,@RequestParam("checkRoles") String[] selectResult) {
         Set<Role> roles = new HashSet<>();
         for (String s : selectResult) {
@@ -64,8 +67,8 @@ public class AdminController {
 
 
 
-    @DeleteMapping("/admin/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
         userService.delete(id);
         return "redirect:/admin";
     }

@@ -29,5 +29,10 @@ public class RoleDaoImpl implements RoleDao {
                 .setParameter("roleName", roleName).getSingleResult();
     }
 
+    @Override
+    public void addRole(Role role) {
+        entityManager.persist(role);
+    }
+
 
 }

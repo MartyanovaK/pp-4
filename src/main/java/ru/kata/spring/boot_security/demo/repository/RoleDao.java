@@ -13,6 +13,8 @@ public interface RoleDao {
 
     Role findRoleByRoleName(String role);
 
+    void addRole(Role role);
+
 
 
 }
