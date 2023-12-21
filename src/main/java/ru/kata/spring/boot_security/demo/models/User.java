@@ -40,7 +40,11 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
 
-    public User() {}
+    public User(String username, String password, boolean accountNonExpired, boolean credentialsNonExpired, boolean enabled, boolean accountNonLocked, Set<Role> roles) {
+        this.userName = username;
+        this.password = password;
+
+    }
 
     public User(String name, String userName, String lastName, String email, String password) {
         this.name = name;

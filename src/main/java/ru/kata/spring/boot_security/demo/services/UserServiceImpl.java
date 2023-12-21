@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
     private final UserDao userDao;
 
     @Autowired
@@ -52,16 +52,6 @@ public class UserServiceImpl implements UserService {
         }
         return userDB;
     }
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUserName(username);
-        if (user == null){
-            throw new UsernameNotFoundException(String.format("User %s not found",username));
-        }
-        return new  org.springframework.security.core.userdetails.User( user.getUsername(),user.getPassword(),
-                user.isAccountNonExpired(), user.isCredentialsNonExpired(),
-                user.isEnabled(), user.isAccountNonLocked(),
-                user.getRoles());
-    }
+
 
 }

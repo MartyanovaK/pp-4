@@ -6,29 +6,22 @@
 </head>
 <body>
 <form action="#" th:action="@{/admin/edit}" th:object="${user}" method="post">
-    <label for="name">Имя</label>
-    <input type="text" th:field="*{name}" id="name">
+    <label for="idAdd"></label>
+    <input hidden="hidden" type="number" th:field="*{id}" id="idAdd" placeholder="id">
+    <label for="firstNameUpdate">Имя</label>
+    <input type="text" th:field="*{name}" id="firstNameUpdate" placeholder="Имя">
     <br>
-    <span class="errors" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    <br/>
-    <label for="username"> Логин</label>
-    <input type="text" th:field="*{username}" id="username">
+    <label for="lastNameUpdate">Фамилия</label>
+    <input type="text" th:field="*{lastName}" id="lastNameUpdate" placeholder="Фамилия">
     <br>
-    <span class="errors" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-    <br/>
-    <label for="lastName"> Enter Lastname:</label>
-    <input type="text" th:field="*{lastName}" id="lastName">
+    <label for="emailUpdate">Эл. почта</label>
+    <input type="text" th:field="*{email}" id="emailUpdate" placeholder="Эл. почта">
     <br>
-    <span class="errors" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-    <br/>
-    <label for="email"> Enter Email:</label>
-    <input type="text" th:field="*{email}" id="email">
+    <label for="userNameUpdate">User name</label>
+    <input type="text" th:field="*{userName}" id="userNameUpdate" placeholder="User name">
     <br>
-    <span class="errors" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-    <br/>
-    <br/>
-    <label for="password">Password:</label>
-    <input type="text" th:field="*{password}" id="password">
+    <label for="passwordUpdate">Пароль</label>
+    <input type="text" th:field="*{password}" id="passwordUpdate" placeholder="Пароль">
     <br>
     <label for="roles">Роль:</label>
     <select  id="roles" name="checkRoles">
