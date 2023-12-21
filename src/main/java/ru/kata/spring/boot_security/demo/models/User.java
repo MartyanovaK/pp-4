@@ -43,6 +43,11 @@ public class User implements UserDetails {
     public User(String username, String password, boolean accountNonExpired, boolean credentialsNonExpired, boolean enabled, boolean accountNonLocked, Set<Role> roles) {
         this.userName = username;
         this.password = password;
+        this.roles = roles;
+        accountNonExpired = true;
+        credentialsNonExpired = true;
+        enabled = true;
+        accountNonLocked = true;
 
     }
 
