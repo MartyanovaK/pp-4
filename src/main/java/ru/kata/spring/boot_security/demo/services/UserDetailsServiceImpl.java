@@ -5,27 +5,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.repository.UserDao;
 
 import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final UserDao userDao;
+    private final UserService userService;
 
-    public UserDetailsServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserDetailsServiceImpl( UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUserName(username);
-        Optional<User> userO = Optional.of(user);
-        user = userO.orElseThrow(NullPointerException::new);
-
-        return new User(user.getUsername(),user.getPassword(),
-                user.isAccountNonExpired(), user.isCredentialsNonExpired(),
-                user.isEnabled(), user.isAccountNonLocked(),
-                user.getRoles());
+        User user = userService.findByUserName(username);
+        Optional<User> oUser = Optional.of(user);
+        return oUser.orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
+
 }
