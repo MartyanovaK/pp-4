@@ -22,7 +22,7 @@ public class UserController {
     public String getUser(ModelMap model, Principal principal) {
         User user =(User) userService.loadUserByUsername(principal.getName());
         model.addAttribute("user", user);
-        model.addAttribute("helloMessage", "Hello, " + user.getUserName() + " " + user.getLastName() + "!");
+        model.addAttribute("helloMessage", "Hello, " + user.getName() + " " + user.getLastName() + "!");
         return "user";
     }
 }

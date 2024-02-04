@@ -1,12 +1,16 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
+
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,12 +20,17 @@ public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
 
+
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
+
     }
     @GetMapping()
-    public String allUsers(ModelMap model) {
+    public String allUsers(@ModelAttribute("user") User user, Principal principal, Model model) {
+        User authUser = userService.findByUserName(principal.getName());
+        model.addAttribute("authUser", authUser);
+        model.addAttribute("rolesAuthUser", authUser.getRoles());
         model.addAttribute("users", userService.allUsers());
         model.addAttribute("roles", roleService.findAll());
         return "/admin";

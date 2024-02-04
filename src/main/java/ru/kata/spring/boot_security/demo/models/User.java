@@ -17,8 +17,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
-    private String userName;
+    @Column(name = "age")
+    private Long age;
 
     @Column(name = "name")
     private String name;
@@ -40,8 +40,8 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
 
-    public User(String username, String password, boolean accountNonExpired, boolean credentialsNonExpired, boolean enabled, boolean accountNonLocked, Set<Role> roles) {
-        this.userName = username;
+    public User(String name, String password, boolean accountNonExpired, boolean credentialsNonExpired, boolean enabled, boolean accountNonLocked, Set<Role> roles) {
+        this.name = name;
         this.password = password;
         this.roles = roles;
         accountNonExpired = true;
@@ -51,9 +51,9 @@ public class User implements UserDetails {
 
     }
 
-    public User(String name, String userName, String lastName, String email, String password) {
+    public User(String name, Long age, String lastName, String email, String password) {
         this.name = name;
-        this.userName = userName;
+        this.age = age;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
@@ -79,12 +79,12 @@ public class User implements UserDetails {
         this.name = name;
     }
 
-    public String getUserName() {
-        return userName;
+    public Long getAge() {
+        return age;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAge(Long age) {
+        this.age = age;
     }
 
     public String getLastName() {
@@ -115,15 +115,12 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public void addRoleToUser(Role role) {
-        this.roles.add(role);
-    }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", age='" + age + '\'' +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
@@ -145,7 +142,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
 
     @Override
