@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -37,39 +36,15 @@ public class AdminController {
     }
 
 
-    @GetMapping("/new")
-    public String newUser(ModelMap model, User user) {
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roleService.findAll());
-        return "/new";
-    }
-
-    @PostMapping("/new")
-    public String add(@ModelAttribute("user") User user, @RequestParam("checkRoles") String[] selectResult) {
-        Set<Role> roles = new HashSet<>();
-        for (String s : selectResult) {
-            roles.add(roleService.findRoleByRoleName("ROLE_" + s));
-            user.setRoles(roles);
-        }
+    @PostMapping("")
+    public String saveUser(@ModelAttribute("user")  User user) {
         userService.add(user);
         return "redirect:/admin";
     }
 
 
-    @GetMapping("/edit")
-    public String edit(ModelMap model, @RequestParam("id") Long id) {
-        model.addAttribute("user", userService.getById(id));
-        return "/edit";
-    }
-
-
-    @PostMapping("/edit")
-    public String update(@ModelAttribute("user") User user,@RequestParam("checkRoles") String[] selectResult) {
-        Set<Role> roles = new HashSet<>();
-        for (String s : selectResult) {
-            roles.add(roleService.findRoleByRoleName("ROLE_" + s));
-            user.setRoles(roles);
-        }
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user")  User user) {
         userService.edit(user);
         return "redirect:/admin";
     }
