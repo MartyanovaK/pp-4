@@ -2,16 +2,12 @@ package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -51,7 +47,7 @@ public class AdminController {
 
 
 
-    @GetMapping("/delete")
+    @DeleteMapping ("/delete")
     public String delete(@RequestParam("id") Long id) {
         userService.delete(id);
         return "redirect:/admin";

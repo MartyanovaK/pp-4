@@ -139,33 +139,33 @@
 
                                                                 <div class="mb-3">
                                                                     <label for="edit-id"><b>ID</b></label>
-                                                                    <input class="form-control" type="text"
-                                                                           id="edit-id"
-                                                                           th:value="*{id}"
-                                                                           th:name="id" disabled>
+                                                                    <input type="text" class="form-control"
+                                                                           th:value="${user.getId()}"
+                                                                           name="id"
+                                                                           id="edit-id" disabled>
                                                                 </div>
 
                                                                 <div class="mb-3">
                                                                     <label for="edit-firstname"><b>First Name</b></label>
                                                                     <input class="form-control" type="text"
                                                                            id="edit-firstname"
-                                                                           th:value="*{name}"
-                                                                           th:name="firstName" minlength="2" maxlength="50" required>
+                                                                           th:value="${user.getName()}"
+                                                                           name="firstName" minlength="2" maxlength="50" required>
                                                                 </div>
 
                                                                 <div class="mb-3">
                                                                     <label for="edit-lastname"><b>Last Name</b></label>
                                                                     <input class="form-control" type="text"
                                                                            id="edit-lastname"
-                                                                           th:value="*{lastName}"
-                                                                           th:name="lastName" minlength="2" maxlength="50" required>
+                                                                           th:value="${user.getLastName()}"
+                                                                           name="lastName" minlength="2" maxlength="50" required>
                                                                 </div>
 
                                                                 <div class="mb-3">
                                                                     <label for="edit-age"><b>Age</b></label>
                                                                     <input class="form-control" type="number"
                                                                            id="edit-age"
-                                                                           th:value="*{age}"
+                                                                           th:value="${user.getAge()}"
                                                                            th:name="age" min="0" max="100" required>
                                                                 </div>
 
@@ -173,7 +173,7 @@
                                                                     <label for="edit-email"><b>Email</b></label>
                                                                     <input class="form-control" type="email"
                                                                            id="edit-email"
-                                                                           th:value="*{email}"
+                                                                           th:value="${user.getEmail()}"
                                                                            th:name="email" minlength="2" maxlength="50" required>
                                                                     <div class="invalid-feedback">
                                                                         Пожалуйста, введите правильный адрес электронной почты.
@@ -184,7 +184,7 @@
                                                                     <label for="edit-password"><b>Password</b></label>
                                                                     <input class="form-control password" type="password"
                                                                            id="edit-password"
-                                                                           th:value="*{password}"
+                                                                           th:value="${user.getPassword()}"
                                                                            th:name="password" required>
                                                                     <div class="invalid-feedback">
                                                                         Пароль должен содержать не менее 8 символов.
@@ -241,14 +241,14 @@
                                                     <div class="d-flex justify-content-center align-items-center container">
                                                         <div class="row">
                                                             <form th:method="DELETE"
-                                                                  th:action="@{/admin/{id}(id=${user.id})}"
+                                                                  th:action="@{/admin/{id}(id=${user.getId()})}"
                                                                   th:object="${user}">
 
                                                                 <div class="mb-3">
                                                                     <label for="delete-id"><b>ID</b></label>
                                                                     <input class="form-control" readonly type="text"
                                                                            id="delete-id"
-                                                                           th:value="*{id}"
+                                                                           th:value="${user.getId()}"
                                                                            name="id" disabled>
                                                                 </div>
 
@@ -257,7 +257,7 @@
                                                                         Name</b></label>
                                                                     <input class="form-control" readonly type="text"
                                                                            id="delete-firstname"
-                                                                           th:value="*{name}"
+                                                                           th:value="${user.getName()}"
                                                                            name="firstName" disabled>
                                                                 </div>
 
@@ -266,7 +266,7 @@
                                                                         Name</b></label>
                                                                     <input class="form-control" readonly type="text"
                                                                            id="delete-lastname"
-                                                                           th:value="*{lastName}"
+                                                                           th:value="${user.getLastName()}"
                                                                            name="lastname" disabled>
                                                                 </div>
 
@@ -275,7 +275,7 @@
                                                                     <input class="form-control" readonly
                                                                            type="number"
                                                                            id="delete-age"
-                                                                           th:value="*{age}"
+                                                                           th:value="${user.getAge()}"
                                                                            name="age" disabled>
                                                                 </div>
 
@@ -283,7 +283,7 @@
                                                                     <label for="delete-email"><b>Email</b></label>
                                                                     <input class="form-control" readonly type="text"
                                                                            id="delete-email"
-                                                                           th:value="*{email}"
+                                                                           th:value="${user.getEmail()}"
                                                                            name="email" disabled>
                                                                 </div>
 
@@ -291,7 +291,7 @@
                                                                     <label for="delete-password"><b>Password</b></label>
                                                                     <input class="form-control" readonly type="text"
                                                                            id="delete-password"
-                                                                           th:value="*{password}"
+                                                                           th:value="${user.getPassword()}"
                                                                            name="password" disabled>
                                                                 </div>
 
