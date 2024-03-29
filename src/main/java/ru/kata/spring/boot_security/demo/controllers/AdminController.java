@@ -32,6 +32,8 @@ public class AdminController {
     }
 
 
+
+
     @PostMapping("")
     public String saveUser(@ModelAttribute("user")  User user) {
         userService.add(user);
@@ -39,16 +41,21 @@ public class AdminController {
     }
 
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user")  User user) {
+
+    @GetMapping("/edit")
+    public String update(Model model, @RequestParam("id") long id) {
+        model.addAttribute("user", userService.getById(id));
+        return "redirect:/admin";
+    }
+    @PostMapping("/edit")
+    public String update(@RequestParam("id") long id) {
+        User user = userService.getById(id);
         userService.edit(user);
         return "redirect:/admin";
     }
 
-
-
-    @DeleteMapping ("/delete")
-    public String delete(@RequestParam("id") Long id) {
+    @RequestMapping("/delete")
+    public String delete(@RequestParam("id") long id) {
         userService.delete(id);
         return "redirect:/admin";
     }
