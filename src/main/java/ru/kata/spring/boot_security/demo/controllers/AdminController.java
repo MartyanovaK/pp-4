@@ -42,19 +42,14 @@ public class AdminController {
 
 
 
-    @GetMapping("/edit")
-    public String update(Model model,@RequestParam long id) {
-        model.addAttribute("user", userService.getById(id));
-        return "redirect:/admin";
-    }
-    @PostMapping("/edit/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") long id) {
-        userService.edit(user);
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user")  User user) {
+        userService.edit(user, user.getId());
         return "redirect:/admin";
     }
 
-    @RequestMapping("/delete")
-    public String delete(@RequestParam("id") long id) {
+    @RequestMapping("/{id}")
+    public String delete(@PathVariable("id") long id) {
         userService.delete(id);
         return "redirect:/admin";
     }
