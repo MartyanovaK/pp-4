@@ -43,13 +43,12 @@ public class AdminController {
 
 
     @GetMapping("/edit")
-    public String update(Model model, @RequestParam("id") long id) {
+    public String update(Model model,@RequestParam long id) {
         model.addAttribute("user", userService.getById(id));
         return "redirect:/admin";
     }
-    @PostMapping("/edit")
-    public String update(@RequestParam("id") long id) {
-        User user = userService.getById(id);
+    @PostMapping("/edit/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") long id) {
         userService.edit(user);
         return "redirect:/admin";
     }

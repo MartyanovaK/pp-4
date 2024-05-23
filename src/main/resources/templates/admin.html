@@ -125,8 +125,9 @@
                                                     <div class="modal-body text-center">
                                                         <div class="d-flex justify-content-center align-items-center container">
                                                             <div class="row">
-                                                                <form th:method="POST" th:action="@{/admin/edit/}" th:object="${user}">
-
+                                                                <form th:method="POST"
+                                                                th:action="@{/admin/edit/{id} (id=${user.getId()})}"
+                                                                th:object="${user}">
                                                                     <div class="mb-3">
                                                                         <label for="edit-id"><b>ID</b></label>
                                                                         <input type="text" class="form-control"
