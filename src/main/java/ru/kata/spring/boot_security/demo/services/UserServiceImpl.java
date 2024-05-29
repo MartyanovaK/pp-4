@@ -9,7 +9,7 @@ import ru.kata.spring.boot_security.demo.repository.UserDao;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService{
     private final UserDao userDao;
 
@@ -20,25 +20,22 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> allUsers() {
-        return userDao.findAll();
+        return userDao.allUsers();
     }
 
 
+    @Transactional
     @Override
-    public boolean add(User user) {
+    public void add(User user) {
         userDao.save(user);
-        return true;
     }
 
 
     @Override
     @Transactional
-    public boolean delete(Long id) {
-        if(userDao.findById(id).isPresent()) {
-            userDao.deleteById(id);
-            return true;
-        }
-        return false;
+    public void delete(Long id) {
+        userDao.deleteById(id);
+
     }
 
 
