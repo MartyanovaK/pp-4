@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repository.UserDao;
+import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,6 +27,11 @@ public class UserServiceImpl implements UserService{
     }
 
 
+    @Override
+    public User findById(long id) {
+        Optional<User> findOne = userDao.findById(id);
+        return findOne.orElseThrow(UserNotFoundException::new);
+    }
     @Transactional
     @Override
     public void add(User user) {
