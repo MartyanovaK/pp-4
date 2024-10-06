@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class RestApiController {
     private final UserService userService;
 
@@ -35,7 +35,7 @@ public class RestApiController {
     public User getOneUser(@PathVariable("id") long id) {
         return userService.findById(id);
     }
-    // delete update
+
     @PatchMapping("/{id}")
     public ResponseEntity<HttpStatus> updateUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
@@ -62,7 +62,7 @@ public class RestApiController {
             throw new UserNotCreatedException(errorString.toString());
         }
         userService.add(user);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
